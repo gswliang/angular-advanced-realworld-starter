@@ -1,0 +1,60 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-xs-12">
+        <form [formGroup]="createForm" (ngSubmit)="onCreate()">
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="text"
+              placeholder="Post Title"
+              formControlName="title"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <textarea
+              class="form-control"
+              rows="3"
+              placeholder="Description"
+              formControlName="description"
+            ></textarea>
+          </fieldset>
+          <fieldset class="form-group">
+            <textarea
+              class="form-control"
+              rows="8"
+              placeholder="Post body"
+              formControlName="body"
+            ></textarea>
+          </fieldset>
+          <fieldset class="form-group">
+            <input
+            class="form-control"
+            type="text"
+            placeholder="Enter tags"
+            #tag
+            (keyup.enter)="addTag(tag.value); tag.value = ''"
+            (keydown.enter)="$event.preventDefault()"
+          />
+          <div class="tag-list" formArrayName="tags" >
+            <span
+              class="label label-pill label-default"
+              *ngFor="let tag of tags.controls; let index = index"
+            >
+              <i class="ion-close-round" (click)="removeTag(index)"></i>
+              {{ tag.value }}
+            </span>
+          </div>
+          </fieldset>
+          <button
+          type="submit"
+          class="btn btn-lg btn-primary pull-xs-right"
+          [disabled]= "createForm.invalid"
+          >
+            Create Post
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
